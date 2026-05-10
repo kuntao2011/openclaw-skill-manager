@@ -1,7 +1,7 @@
 ---
-name: "OpenClaw技能统计与分类管理"
-version: "1.0.0"
-description: "OpenClaw 技能统计与分类管理工具。自动扫描所有技能，支持多格式导出（Markdown/JSON/HTML），自动分类（9大类30+子类），状态图标显示，增量更新检测，重复技能识别，交互式 Web 界面。"
+name: "OpenClaw技能分类与统计"
+version: "1.0.1"
+description: "OpenClaw 技能分类与统计工具。自动扫描所有技能，支持多格式导出（Markdown/JSON/HTML），自动分类（9大类30+子类），状态图标显示，增量更新检测，重复技能识别，交互式 Web 界面。"
 author: "Kun. Tao"
 ---
 

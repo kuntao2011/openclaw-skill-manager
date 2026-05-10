@@ -1,10 +1,10 @@
-# OpenClaw 技能统计与分类管理
+# OpenClaw 技能分类与统计
 
 > 增强版 OpenClaw 技能列表生成工具，采用模块化架构，支持多种输出格式和高级功能。
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](__init__.py)
+[![Version](https://img.shields.io/badge/Version-1.0.1-orange.svg)](__init__.py)
 
 ## ✨ 功能特性
 

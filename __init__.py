@@ -20,5 +20,5 @@ kt_skill_list_skill - 增强版 OpenClaw 技能列表生成工具
 - utils/ - 工具层（翻译、差异对比、配置）
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Kun. Tao"
