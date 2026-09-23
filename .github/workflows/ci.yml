@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: 语法编译检查
+        run: python -m compileall -q classifier data exporter utils generate_skill_list.py __init__.py
+      - name: 安装 pytest
+        run: pip install pytest
+      - name: 运行测试
+        run: pytest -q
