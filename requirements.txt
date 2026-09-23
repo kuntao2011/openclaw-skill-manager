@@ -1,0 +1,7 @@
+# OpenClaw 技能分类与统计工具 - 依赖包
+
+# 标准库（无需安装）
+# - os, sys, typing, argparse, json, hashlib, datetime, logging
+# - shutil, subprocess, re, glob
+
+# 注意：本技能仅使用 Python 标准库，无需 pip install
