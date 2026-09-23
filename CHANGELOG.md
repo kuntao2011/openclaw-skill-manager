@@ -1,5 +1,32 @@
 # 更新日志 (CHANGELOG)
 
+## [1.2.0] - 2026-09-23
+
+### 🚀 待提升项目全部落地（roadmap 六项 + 六项增强）
+
+#### 新功能
+- **使用频率统计**（`--usage`）：主路读 state 库 `skill_usage` 表，回退 `skills curator status --json`；md/html/json 增加调用量列
+- **缺失依赖关系图**（`--deps`）：md 输出 mermaid 图，HTML 输出 SVG 二部图；数据源为 skills list 的 `missing` 字段（43 条边实测）
+- **批量启用/禁用**（`--enable` / `--disable`）：写官方机制 `skills.entries.<名>.enabled`，改前自动备份 openclaw.json、写回前 JSON 校验、写后跑 CLI 验证
+- **更新检查**（`--check-updates`）：git 安装轨对比本地/安装记录 commit 与远端 HEAD；ClawHub 轨提示官方 `openclaw skills update --all`；只报告不自动升级
+- **飞书云文档导出**（`--push feishu`）：上传 md → docx 导入任务 → 返回文档链接
+- **Notion 页面导出**（`--push notion`）：md 转 blocks 分批追加；两者凭据一律走环境变量，零第三方依赖
+
+#### 增强
+- **修复状态误判**：`get_skill_status` 补检 `anyBins` 组（此前仅缺 anyBins 的技能如 spotify-player 被误标 Ready）
+- **输出利用元数据**：emoji、来源（bundled/workspace/…）、主页链接进入所有输出格式
+- **分类自定义覆盖层**：`~/.openclaw/skill_categories.json` 优先于内置映射表，第三方技能不再必须改源码
+- **汉化词表辅助**（`--i18n-report`）：输出未命中词表的英文词清单
+- **判重算法升级**：描述相似度从「前 20 字符相等」改为 `difflib.SequenceMatcher`（阈值 0.9）
+- **HTML 表头排序**：名称/版本/来源/调用量/分类点击排序
+
+#### 工程化
+- 新增 `tests/`：47 个 pytest 用例（状态判定/分类/覆盖层/导出器/差异/用量/更新/启停/HTTP 客户端/Notion blocks）
+- 新增 GitHub Actions CI：compileall + pytest（Python 3.9 / 3.12 矩阵）
+- 新增 `utils/webclient.py`：标准库 HTTP 客户端，强制 HTTPS + 主机白名单 + 拒绝内网/环回/保留地址
+
+---
+
 ## [1.1.0] - 2026-09-23
 
 ### 🛠 对抗审查整改

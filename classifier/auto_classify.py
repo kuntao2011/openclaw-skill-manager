@@ -4,6 +4,7 @@
 基于名称模式与描述相似度发现功能重复的技能
 """
 from typing import Dict, List, Tuple, Any
+from difflib import SequenceMatcher
 import logging
 
 logger = logging.getLogger(__name__)
@@ -41,7 +42,8 @@ def find_duplicate_skills(skills: List[Dict[str, Any]]) -> List[Tuple[Dict[str, 
             # 检查描述相似度
             desc1 = skill1.get('description', '').lower()
             desc2 = skill2.get('description', '').lower()
-            if desc1 and desc2 and desc1[:20] == desc2[:20]:
+            if desc1 and desc2 and len(desc1) >= 20 and len(desc2) >= 20 \
+                    and SequenceMatcher(None, desc1, desc2).ratio() >= 0.9:
                 duplicates.append((skill1, skill2, "描述高度相似"))
 
     return duplicates

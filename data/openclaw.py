@@ -110,10 +110,11 @@ def get_skill_status(skill: Dict[str, Any]) -> str:
     if is_disabled:
         return 'disabled'
     
-    # 检查是否有缺失的依赖
+    # 检查是否有缺失的依赖（anyBins 表示该组任一存在即可，全缺才算缺失）
     missing = skill.get('missing', {})
     has_missing_deps = (
         bool(missing.get('bins', [])) or
+        bool(missing.get('anyBins', [])) or
         bool(missing.get('env', [])) or
         bool(missing.get('config', [])) or
         bool(missing.get('os', []))

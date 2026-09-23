@@ -2,6 +2,8 @@
 
 # 标准库（无需安装）
 # - os, sys, typing, argparse, json, hashlib, datetime, logging
-# - shutil, subprocess, re, glob
+# - shutil, subprocess, re, glob, pathlib, difflib
+# - sqlite3, urllib, ipaddress, uuid, socket（远端推送与统计）
 
 # 注意：本技能仅使用 Python 标准库，无需 pip install
+# 运行测试需要：pip install pytest
