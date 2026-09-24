@@ -24,5 +24,5 @@ openclaw-skill-manager - OpenClaw 技能分类与统计工具
 - tests/ - pytest 单测
 """
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 __author__ = "kuntao2011"

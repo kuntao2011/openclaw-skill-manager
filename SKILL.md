@@ -1,9 +1,9 @@
 ---
 name: openclaw-skill-manager
-description: "OpenClaw 技能分类与统计工具。自动扫描所有技能，多格式导出（Markdown/JSON/HTML）与飞书/Notion 推送，自动分类（10 大类 48 子类），使用统计，缺失依赖关系图，批量启停，更新检查，交互式 Web 界面。"
+description: "OpenClaw skill classification & statistics tool. Scans all installed skills, exports Markdown/JSON/HTML with Feishu/Notion push, auto-classifies into 10 categories / 48 subcategories, tracks usage, maps missing dependencies, batch enables/disables, checks for updates, and renders an interactive web UI. OpenClaw 技能分类与统计工具：自动扫描全部技能，多格式导出（Markdown/JSON/HTML）并推送飞书/Notion，自动分类（10 大类 48 子类），使用统计，缺失依赖关系图，批量启停，更新检查，附交互式 Web 界面。"
 license: MIT
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
   author: kuntao2011
 ---
 
