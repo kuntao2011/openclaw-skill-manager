@@ -4,6 +4,7 @@
 
 ### 📝 说明双语化
 - frontmatter `description`、README 简介与 GitHub 仓库描述统一为「英文在前、中文在后」的双语格式
+- README 拆分为英文 `README.md` 与中文 `README.zh-CN.md`，顶部互链切换
 
 ---
 

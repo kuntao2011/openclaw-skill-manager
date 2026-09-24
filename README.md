@@ -1,245 +1,234 @@
-# OpenClaw 技能分类与统计
-
-> Enhanced OpenClaw skill inventory generator with a modular architecture, multiple export formats, and advanced features. 增强版 OpenClaw 技能列表生成工具，采用模块化架构，支持多种输出格式和高级功能。
+# OpenClaw Skill Classification & Statistics
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.2.1-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
-## ✨ 功能特性
+**English** | [简体中文](README.zh-CN.md)
 
-### 核心功能
-- ✅ **多格式输出**：Markdown / JSON / HTML
-- ✅ **分类统计**：10 大类 48 子类自动归类，支持用户自定义覆盖层
-- ✅ **状态图标**：✅ Ready / ⚠️ NeedSetup / ❌ Disabled
-- ✅ **元数据**：版本号、作者、emoji、来源、主页链接
-- ✅ **Web 界面**：交互式 HTML，支持搜索、筛选、表头排序
+> Enhanced OpenClaw skill inventory generator with a modular architecture, multiple export formats, and advanced features.
 
-### 高级功能
-- 🔄 **增量更新**：对比上次运行快照，只输出变化的技能
-- 🤖 **自动分类**：基于规则的技能自动归类
-- 🔍 **重复检测**：名称模式 + 描述相似度（SequenceMatcher）
-- 🎯 **灵活过滤**：按状态、关键词、分类过滤
-- 📦 **状态检测**：基于 OpenClaw CLI 输出识别缺失依赖（含 anyBins 组）
-- 🌍 **描述汉化**：内置词表替换常见英文描述短语，附未汉化词报告
-- 📊 **使用统计**：state 库 skill_usage 表 / curator 双数据源（`--usage`）
-- 🔗 **依赖关系图**：缺失依赖边可视化（`--deps`）
-- 🔁 **批量启停**：写 `skills.entries.<名>.enabled`，自动备份 + 写后验证
-- ⬆️ **更新检查**：git 轨对比远端 HEAD，只报告不升级（`--check-updates`）
-- 📤 **远端推送**：Markdown 一键推送为飞书云文档 / Notion 页面（`--push`）
+## ✨ Features
 
-## 🏗️ 架构设计
+### Core
+- ✅ **Multi-format export**: Markdown / JSON / HTML
+- ✅ **Classification stats**: auto-classification into 10 categories / 48 subcategories, with user-defined overlay
+- ✅ **Status icons**: ✅ Ready / ⚠️ NeedSetup / ❌ Disabled
+- ✅ **Metadata**: version, author, emoji, source, homepage link
+- ✅ **Web UI**: interactive HTML with search, filters, and sortable headers
+
+### Advanced
+- 🔄 **Incremental update**: compare against the last snapshot and export only what changed
+- 🤖 **Auto-classification**: rule-based categorization for new skills
+- 🔍 **Duplicate detection**: name patterns + description similarity (SequenceMatcher)
+- 🎯 **Flexible filters**: by status, keyword, and category
+- 📦 **Status detection**: detects missing dependencies (incl. `anyBins` groups) from the OpenClaw CLI
+- 🌍 **Description Sinicization**: built-in glossary replaces common English phrases, with an untranslated-words report
+- 📊 **Usage stats**: dual data source — `skill_usage` table / curator (`--usage`)
+- 🔗 **Dependency graph**: missing-dependency edges as mermaid (md) and SVG bipartite chart (html) (`--deps`)
+- 🔁 **Batch enable/disable**: writes `skills.entries.<name>.enabled` with auto-backup and post-write verification
+- ⬆️ **Update check**: git track vs remote HEAD, ClawHub track hint — report only, never auto-upgrades (`--check-updates`)
+- 📤 **Remote push**: push exported Markdown to Feishu Docs / Notion pages (`--push`)
+
+## 🏗️ Architecture
 
 ```
 openclaw-skill-manager/
-├── data/                      # 数据层（CLI 封装、统计、依赖、更新、启停）
-├── classifier/                # 分类层（映射表、覆盖层、重复检测）
-├── exporter/                  # 导出层（Markdown/JSON/HTML/飞书/Notion）
-├── utils/                     # 工具层（配置、汉化、差异、HTTP 客户端）
-├── tests/                     # pytest 单测
-├── generate_skill_list.py     # 主入口
-└── __init__.py                # 包定义
+├── data/                      # data layer (CLI wrapper, stats, deps, updates, toggle)
+├── classifier/                # classification layer (category map, overlay, duplicates)
+├── exporter/                  # export layer (Markdown/JSON/HTML/Feishu/Notion)
+├── utils/                     # utilities (config, glossary, diff, HTTP client)
+├── tests/                     # pytest unit tests
+├── generate_skill_list.py     # main entry
+└── __init__.py                # package definition
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境要求
+### Requirements
 - Python 3.8+
-- OpenClaw 已安装并配置
+- OpenClaw installed and configured
 
-### 安装
+### Install
 
-1. 通过 OpenClaw 技能安装功能安装（推荐）：
+1. Via the OpenClaw skill installer (recommended):
 ```bash
 openclaw skills install git:https://github.com/kuntao2011/openclaw-skill-manager
 ```
 
-2. 或手动克隆本仓库到 OpenClaw 技能目录：
+2. Or clone manually into the OpenClaw skills directory:
 ```bash
 git clone https://github.com/kuntao2011/openclaw-skill-manager
 cp -r openclaw-skill-manager ~/.openclaw/workspace/skills/
 ```
 
-### 使用方式
+### Usage
 
-#### 基本用法
+#### Basics
 ```bash
 cd ~/.openclaw/workspace/skills/openclaw-skill-manager
 python3 generate_skill_list.py
 ```
 
-#### 指定输出格式
+#### Output formats
 ```bash
-# Markdown（默认）
+# Markdown (default)
 python3 generate_skill_list.py -f markdown
 
 # JSON
 python3 generate_skill_list.py -f json
 
-# HTML（交互式界面）
+# HTML (interactive UI)
 python3 generate_skill_list.py -f html
 
-# 全部格式
+# All formats
 python3 generate_skill_list.py -f all
 ```
 
-#### 过滤选项
+#### Filters
 ```bash
-# 只导出已激活技能
+# Activated skills only
 python3 generate_skill_list.py -F activated
 
-# 只导出未激活技能
+# Not-activated skills only
 python3 generate_skill_list.py -F not_activated
 
-# 按关键词搜索
-python3 generate_skill_list.py -s "同花顺"
+# Search by keyword
+python3 generate_skill_list.py -s "tavily"
 
-# 按分类过滤
-python3 generate_skill_list.py -c "金融分析工具"
+# Filter by category
+python3 generate_skill_list.py -c "Dev Tools"
 ```
 
-#### 高级选项
+#### Advanced options
 ```bash
-# 增量更新（只输出变化）
+# Incremental update (only changes)
 python3 generate_skill_list.py -i
 
-# 检测重复技能
+# Detect duplicate skills
 python3 generate_skill_list.py --check-duplicates
 
-# 自定义输出目录（不存在时自动创建）
+# Custom output directory (created automatically)
 python3 generate_skill_list.py -o /path/to/output
 
-# 简洁模式
+# Quiet mode
 python3 generate_skill_list.py -q
 
-# 使用次数列
+# Usage-count column
 python3 generate_skill_list.py --usage
 
-# 缺失依赖关系图
+# Missing-dependency graph
 python3 generate_skill_list.py --deps
 
-# 未汉化英文词报告
+# Untranslated-words report
 python3 generate_skill_list.py --i18n-report
 
-# 更新检查（只报告，不自动升级）
+# Update check (report only, never upgrades)
 python3 generate_skill_list.py --check-updates
 
-# 批量启停（自动备份 openclaw.json，写后验证）
+# Batch enable/disable (auto-backup + CLI verification)
 python3 generate_skill_list.py --disable skill-a,skill-b
 python3 generate_skill_list.py --enable skill-a
 
-# 推送本次导出的 Markdown 到飞书 / Notion
+# Push exported Markdown to Feishu / Notion
 python3 generate_skill_list.py -f all --push feishu,notion
 ```
 
-## 🔐 远端推送凭据（只走环境变量）
+## 🔐 Remote-push credentials (environment variables only)
 
-| 目标 | 必填 | 可选 |
-|------|------|------|
-| 飞书 | `FEISHU_APP_ID`、`FEISHU_APP_SECRET` | `FEISHU_FOLDER_TOKEN`（缺省写入云空间根目录） |
-| Notion | `NOTION_TOKEN`、`NOTION_PAGE_ID` | — |
+| Target | Required | Optional |
+|--------|----------|----------|
+| Feishu | `FEISHU_APP_ID`, `FEISHU_APP_SECRET` | `FEISHU_FOLDER_TOKEN` (defaults to the root of My Space) |
+| Notion | `NOTION_TOKEN`, `NOTION_PAGE_ID` | — |
 
-凭据一律从环境变量读取，任何凭据字面量不得写入本仓库。
+Credentials are read exclusively from environment variables; no credential literals may ever be committed to this repository.
 
-## ⚙️ 配置说明
+## ⚙️ Configuration
 
-### 输出目录配置
+### Output directory
 
-编辑 `utils/config.py` 自定义输出目录：
+Edit `utils/config.py`:
 
 ```python
-# 默认输出目录
+# Default output directory
 OUTPUT_DIR = os.path.join(USER_PROFILE, 'openclaw_out')
 
-# 修改为其他目录
+# Or another directory
 # OUTPUT_DIR = '/your/custom/path'
 ```
 
-或通过命令行参数临时指定：
+Or pass it on the command line:
 ```bash
 python3 generate_skill_list.py -o ~/my_skills
 ```
 
-### 自定义分类覆盖层
+### Custom category overlay
 
-新建 `~/.openclaw/skill_categories.json`（优先级高于内置映射表）：
+Create `~/.openclaw/skill_categories.json` (takes precedence over the built-in map):
 
 ```json
 {
-  "my-skill": ["开发工具", "编码与开发"]
+  "my-skill": ["Dev Tools", "Coding"]
 }
 ```
 
-## 📊 输出示例
+## 📊 Output example
 
-### Markdown 表格
+### Markdown table
 ```
-| 序号 | 状态 | 技能名称 | 版本 | 来源 | 调用量 | 描述 |
-|------|------|----------|------|------|------|------|
-| 1 | ✅ | [🔮 问财选A股](https://...) | 1.0.0 | workspace | 12 | A股智能选股 |
-| 2 | ⚠️ | futuapi | 2.1.0 | bundled | - | 富途行情API |
+| # | Status | Skill | Version | Source | Calls | Description |
+|---|--------|-------|---------|--------|-------|-------------|
+| 1 | ✅ | 🔮 askcA | 1.0.0 | workspace | 12 | A-share smart screener |
+| 2 | ⚠️ | futuapi | 2.1.0 | bundled | - | Futu market API |
 ```
 
-### HTML 界面特性
-- 🔍 实时搜索技能名称和描述
-- 📂 按分类过滤、按状态筛选
-- 🔃 表头点击排序（名称/版本/来源/调用量/分类）
-- 🔗 缺失依赖关系 SVG 二部图
-- 📈 实时统计面板
-- 🎨 响应式布局，手机和电脑都可正常使用
+### HTML UI
+- 🔍 Live search over names and descriptions
+- 📂 Category filter + status filter
+- 🔃 Click-to-sort headers (name/version/source/calls/category)
+- 🔗 Missing-dependency SVG bipartite chart
+- 📈 Live stats panel
+- 🎨 Responsive layout for desktop and mobile
 
-## 📁 输出文件
+## 📁 Output files
 
-运行后生成以下文件：
-- `已激活技能列表.md` - Markdown 格式的已激活技能列表
-- `未激活技能列表.md` - Markdown 格式的未激活技能列表
-- `技能列表.json` - 完整结构化 JSON 数据（含 usage / dependency_edges）
-- `已激活技能列表.html` - 交互式 HTML 网页
-- `未激活技能列表.html` - 交互式 HTML 网页
-- `未汉化词表.txt` - 使用 `--i18n-report` 时生成
+- `activated-skills.md` — Markdown list of activated skills (`已激活技能列表.md`)
+- `not-activated-skills.md` — Markdown list of not-activated skills (`未激活技能列表.md`)
+- `技能列表.json` — full structured JSON (incl. usage / dependency_edges)
+- `已激活技能列表.html` — interactive HTML page
+- `未激活技能列表.html` — interactive HTML page
+- `未汉化词表.txt` — generated with `--i18n-report`
 
-## 🧪 开发与测试
+## 🧪 Development & testing
 
 ```bash
-python3 -m pytest -q          # 运行单测（47 个用例）
+python3 -m pytest -q          # 47 unit tests
 python3 -m compileall -q classifier data exporter utils generate_skill_list.py __init__.py
 ```
 
-推送后 GitHub Actions 会自动跑编译检查 + pytest（Python 3.9 / 3.12）。
+GitHub Actions runs compile checks + pytest (Python 3.9 / 3.12) on every push.
 
-## 📝 注意事项
+## 📝 Notes
 
-1. 首次运行会自动创建输出目录与缓存目录 `~/.openclaw/cache/skill_list/`
-2. 增量更新（`-i`）依赖上次运行保存的快照；`--no-snapshot` 可跳过快照保存
-3. 分类规则基于作者个人技能库定制，第三方技能大概率落入「其他」——用 `~/.openclaw/skill_categories.json` 覆盖层或修改 `classifier/category_map.py` 增补
-4. 批量启停会修改 `~/.openclaw/openclaw.json`，每次改动前自动生成带时间戳的备份
-5. 使用统计依赖 OpenClaw 的 `skill_usage` 记录，暂无数据时输出占位符 `-`
+1. First run creates the output directory and the cache directory `~/.openclaw/cache/skill_list/`
+2. Incremental update (`-i`) relies on the snapshot saved by the previous run; `--no-snapshot` skips saving
+3. The classification rules are tailored to the author's personal skill library; third-party skills mostly fall into "Other" — extend via the overlay file or `classifier/category_map.py`
+4. Batch enable/disable modifies `~/.openclaw/openclaw.json`; a timestamped backup is created before every change
+5. Usage stats depend on OpenClaw's `skill_usage` records; a `-` placeholder is shown when no data exists
 
-## 🔮 后续规划
+## 🤝 Contributing
 
-- [x] 支持导出到飞书文档（v1.2.0 `--push feishu`）
-- [x] 支持导出到 Notion（v1.2.0 `--push notion`）
-- [x] 技能使用频率统计（v1.2.0 `--usage`）
-- [x] 技能依赖关系图（v1.2.0 `--deps`）
-- [x] 批量启用/禁用技能（v1.2.0 `--enable` / `--disable`）
-- [x] 自动更新检查（v1.2.0 `--check-updates`）
+Issues and pull requests are welcome!
 
-- [ ] 技能使用趋势图（按周聚合）
-- [ ] 更多远端文档目标（Obsidian / 语雀）
+## 👤 Author
 
-## 🤝 贡献
+**kuntao2011** ([GitHub @kuntao2011](https://github.com/kuntao2011))
 
-欢迎提交 Issue 和 Pull Request！
+## 📄 License
 
-## 👤 作者
+MIT — see [LICENSE](LICENSE).
 
-**kuntao2011**（[GitHub @kuntao2011](https://github.com/kuntao2011)）
+## 📋 Changelog
 
-## 📄 许可证
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
-
-## 📋 更新日志
-
-详见 [CHANGELOG.md](CHANGELOG.md) 了解各版本的变更历史。
+See [CHANGELOG.md](CHANGELOG.md).
