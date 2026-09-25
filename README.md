@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.1-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.2.2-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
 **English** | [简体中文](README.zh-CN.md)
@@ -16,7 +16,7 @@
 - ✅ **Classification stats**: auto-classification into 10 categories / 48 subcategories, with user-defined overlay
 - ✅ **Status icons**: ✅ Ready / ⚠️ NeedSetup / ❌ Disabled
 - ✅ **Metadata**: version, author, emoji, source, homepage link
-- ✅ **Web UI**: interactive HTML with search, filters, and sortable headers
+- ✅ **Interactive HTML report**: sortable/filterable static page (no server required)
 
 ### Advanced
 - 🔄 **Incremental update**: compare against the last snapshot and export only what changed
@@ -29,7 +29,7 @@
 - 🔗 **Dependency graph**: missing-dependency edges as mermaid (md) and SVG bipartite chart (html) (`--deps`)
 - 🔁 **Batch enable/disable**: writes `skills.entries.<name>.enabled` with auto-backup and post-write verification
 - ⬆️ **Update check**: git track vs remote HEAD, ClawHub track hint — report only, never auto-upgrades (`--check-updates`)
-- 📤 **Remote push**: push exported Markdown to Feishu Docs / Notion pages (`--push`)
+- 📤 **Remote push**: opt-in push of exported Markdown to Feishu Docs / Notion pages (`--push`; prints a privacy notice before sending)
 
 ## 🏗️ Architecture
 
@@ -144,6 +144,8 @@ python3 generate_skill_list.py -f all --push feishu,notion
 
 Credentials are read exclusively from environment variables; no credential literals may ever be committed to this repository.
 
+> ⚠️ **Privacy notice**: pushing transmits your skill inventory (names, descriptions, sources, usage counts) to the third-party service you choose. It only runs when `--push` is passed explicitly and prints a warning first; avoid it in sensitive environments.
+
 ## ⚙️ Configuration
 
 ### Output directory
@@ -216,6 +218,8 @@ GitHub Actions runs compile checks + pytest (Python 3.9 / 3.12) on every push.
 3. The classification rules are tailored to the author's personal skill library; third-party skills mostly fall into "Other" — extend via the overlay file or `classifier/category_map.py`
 4. Batch enable/disable modifies `~/.openclaw/openclaw.json`; a timestamped backup is created before every change
 5. Usage stats depend on OpenClaw's `skill_usage` records; a `-` placeholder is shown when no data exists
+6. No persistence mechanisms: no cron jobs, no startup hooks — snapshots and the category overlay are plain data files
+7. CLI output and category labels are in Chinese by design (see `metadata.language: zh-CN`)
 
 ## 🤝 Contributing
 

@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.1-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.2.2-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
 [English](README.md) | **简体中文**
@@ -16,7 +16,7 @@
 - ✅ **分类统计**：10 大类 48 子类自动归类，支持用户自定义覆盖层
 - ✅ **状态图标**：✅ Ready / ⚠️ NeedSetup / ❌ Disabled
 - ✅ **元数据**：版本号、作者、emoji、来源、主页链接
-- ✅ **Web 界面**：交互式 HTML，支持搜索、筛选、表头排序
+- ✅ **交互式 HTML 报告**：可搜索/筛选/表头排序的静态网页（无需服务器）
 
 ### 高级功能
 - 🔄 **增量更新**：对比上次运行快照，只输出变化的技能
@@ -29,7 +29,7 @@
 - 🔗 **依赖关系图**：缺失依赖边可视化（`--deps`）
 - 🔁 **批量启停**：写 `skills.entries.<名>.enabled`，自动备份 + 写后验证
 - ⬆️ **更新检查**：git 轨对比远端 HEAD，只报告不升级（`--check-updates`）
-- 📤 **远端推送**：Markdown 一键推送为飞书云文档 / Notion 页面（`--push`）
+- 📤 **远端推送**：显式传参方触发的 Markdown 推送为飞书云文档 / Notion 页面（`--push`，执行前有隐私提示）
 
 ## 🏗️ 架构设计
 
@@ -144,6 +144,8 @@ python3 generate_skill_list.py -f all --push feishu,notion
 
 凭据一律从环境变量读取，任何凭据字面量不得写入本仓库。
 
+> ⚠️ **隐私提示**：推送会把技能清单（名称、描述、来源、调用量）发送到你指定的第三方服务（飞书/Notion）。仅在显式传入 `--push` 时触发、运行前有提示；敏感/企业环境请勿使用。
+
 ## ⚙️ 配置说明
 
 ### 输出目录配置
@@ -217,6 +219,8 @@ python3 -m compileall -q classifier data exporter utils generate_skill_list.py _
 3. 分类规则基于作者个人技能库定制，第三方技能大概率落入「其他」——用 `~/.openclaw/skill_categories.json` 覆盖层或修改 `classifier/category_map.py` 增补
 4. 批量启停会修改 `~/.openclaw/openclaw.json`，每次改动前自动生成带时间戳的备份
 5. 使用统计依赖 OpenClaw 的 `skill_usage` 记录，暂无数据时输出占位符 `-`
+6. 无任何持久化机制：不注册 cron/开机自启，快照与分类覆盖层只是普通数据文件
+7. 输出与分类标签为中文，面向中文用户（`metadata.language: zh-CN`）
 
 ## 🤝 贡献
 

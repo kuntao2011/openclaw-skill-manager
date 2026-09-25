@@ -394,6 +394,7 @@ def main():
         if not md_files:
             logger.error("推送需要 Markdown 输出，请使用 -f markdown 或 -f all")
             return 1
+        print("\n⚠️  隐私提示：推送会把技能清单（名称/描述/来源/调用量）发送到第三方服务（飞书/Notion）")
         for target in targets:
             push = feishu.push_markdown if target == 'feishu' else notion.push_markdown
             for title, path in md_files.items():

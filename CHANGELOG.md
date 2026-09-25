@@ -1,5 +1,16 @@
 # 更新日志 (CHANGELOG)
 
+## [1.2.2] - 2026-09-25
+
+### 🛡 ClawHub SkillSpector 审查意见整改
+- **修复**：`filesystem.py` 嵌套技能去重键错误——叶子目录同名时会误吞顶层同名技能（`seen_names` 改记 `full_name`），附回归测试
+- description 与实际能力对齐：补增量快照对比、重复检测、汉化词表/报告；「Web 界面」改为「交互式 HTML 报告（静态网页，无需服务器）」
+- frontmatter 新增 `allowed-tools: Bash`（声明工具范围）与 `metadata.language: zh-CN`（声明输出语言）
+- `--push` 执行前新增隐私提示；SKILL/README 补「隐私与安全」说明（外发范围、权限范围、无持久化）
+- subprocess 调用均为参数列表形式（无 shell=True），本次复核确认无注入面
+
+---
+
 ## [1.2.1] - 2026-09-24
 
 ### 📝 说明双语化

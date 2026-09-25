@@ -54,7 +54,7 @@ def scan_skills_directory() -> List[Dict[str, str]]:
                             'dir_path': sub_entry.path,
                             'skill_md_path': sub_skill_md
                         })
-                        seen_names.add(sub_entry.name)
+                        seen_names.add(full_name)
                         
     except Exception as e:
         logger.error(f"扫描技能目录失败: {e}")
