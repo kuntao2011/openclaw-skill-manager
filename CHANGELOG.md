@@ -1,5 +1,15 @@
 # 更新日志 (CHANGELOG)
 
+## [1.2.3] - 2026-09-25
+
+### 🔒 ClawHub clawscan 整改（HTML 报告 XSS + 网络范围说明）
+- **修复 XSS**：HTML 报告的 JS 渲染层对所有技能元数据（名称/emoji/版本/来源/分类/描述/调用量/状态图标）统一 HTML 转义后再写入 innerHTML——此前恶意技能的元数据可在打开报告时执行脚本
+- 主页链接仅放行 http(s) scheme（阻断 `javascript:` 等危险协议），外链补 `rel="noopener noreferrer"`
+- 「隐私与安全」网络范围说明修正：除飞书/Notion API 白名单外，`--check-updates` 还会经 `git ls-remote` 访问安装记录登记的 git 远端
+- 新增 `tests/test_html_escaping.py`（scheme 过滤/转义覆盖/script-break 中和/SVG 转义/正常渲染回归）
+
+---
+
 ## [1.2.2] - 2026-09-25
 
 ### 🛡 ClawHub SkillSpector 审查意见整改

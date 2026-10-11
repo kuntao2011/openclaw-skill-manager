@@ -5,7 +5,7 @@ license: MIT
 allowed-tools:
   - Bash
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
   author: kuntao2011
   language: zh-CN
 ---
@@ -150,7 +150,7 @@ python3 generate_skill_list.py -f all --push feishu,notion
 ## 🔒 隐私与安全
 
 - **外发提示**：`--push` 会把技能清单（名称、描述、来源、调用量）发送到你指定的第三方服务（飞书/Notion）。仅在显式传入该参数时触发，运行前有提示；敏感/企业环境请勿使用。
-- **权限范围**：经 Bash 运行 `python3`；调用 `openclaw`/`git` CLI；写入 `~/.openclaw`（快照缓存；`--enable/--disable` 改 `openclaw.json` 前自动备份）与输出目录；网络访问仅限飞书/Notion API 白名单主机（强制 HTTPS）。
+- **权限范围**：经 Bash 运行 `python3`；调用 `openclaw`/`git` CLI；写入 `~/.openclaw`（快照缓存；`--enable/--disable` 改 `openclaw.json` 前自动备份）与输出目录。网络访问：飞书/Notion API（代码级主机白名单、强制 HTTPS）；`--check-updates` 会用 `git ls-remote` 访问技能安装记录中登记的 git 远端地址。
 - **无持久化**：不注册任何 cron、开机自启或会话钩子；快照与分类覆盖层只是普通数据文件，删掉即失效。
 - **语言说明**：输出与分类标签为中文，面向中文用户（`metadata.language: zh-CN`）。
 

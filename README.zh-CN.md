@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.2-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.2.3-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
 [English](README.md) | **简体中文**
@@ -144,7 +144,7 @@ python3 generate_skill_list.py -f all --push feishu,notion
 
 凭据一律从环境变量读取，任何凭据字面量不得写入本仓库。
 
-> ⚠️ **隐私提示**：推送会把技能清单（名称、描述、来源、调用量）发送到你指定的第三方服务（飞书/Notion）。仅在显式传入 `--push` 时触发、运行前有提示；敏感/企业环境请勿使用。
+> ⚠️ **隐私提示**：推送会把技能清单（名称、描述、来源、调用量）发送到你指定的第三方服务（飞书/Notion）。仅在显式传入 `--push` 时触发、运行前有提示；敏感/企业环境请勿使用。网络范围：飞书/Notion API（代码级主机白名单、强制 HTTPS）；`--check-updates` 会用 `git ls-remote` 访问技能安装记录中登记的 git 远端地址。
 
 ## ⚙️ 配置说明
 

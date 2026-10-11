@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.2-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.2.3-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
 **English** | [简体中文](README.zh-CN.md)
@@ -144,7 +144,7 @@ python3 generate_skill_list.py -f all --push feishu,notion
 
 Credentials are read exclusively from environment variables; no credential literals may ever be committed to this repository.
 
-> ⚠️ **Privacy notice**: pushing transmits your skill inventory (names, descriptions, sources, usage counts) to the third-party service you choose. It only runs when `--push` is passed explicitly and prints a warning first; avoid it in sensitive environments.
+> ⚠️ **Privacy notice**: pushing transmits your skill inventory (names, descriptions, sources, usage counts) to the third-party service you choose. It only runs when `--push` is passed explicitly and prints a warning first; avoid it in sensitive environments. Network scope: Feishu/Notion APIs (code-level host allowlist, HTTPS enforced) plus `git ls-remote` against the git remote recorded in each skill's install metadata for `--check-updates`.
 
 ## ⚙️ Configuration
 

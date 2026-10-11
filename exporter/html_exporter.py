@@ -91,13 +91,17 @@ def generate_html(skills: List[Dict[str, Any]], title: str,
     skills_data = []
     for skill in skills:
         cat = get_category(skill['name'])
+        # 仅放行 http(s) 主页链接，阻断 javascript: 等危险 scheme（SkillSpector 整改）
+        homepage = skill.get('homepage') or ''
+        if not homepage.startswith(('http://', 'https://')):
+            homepage = ''
         item = {
             'name': skill['name'],
             'status': skill.get('status', 'unknown'),
             'version': skill.get('version', ''),
             'source': _source_short(skill),
             'emoji': skill.get('emoji') or '',
-            'homepage': skill.get('homepage') or '',
+            'homepage': homepage,
             'description': skill.get('description', ''),
             'big_category': cat[0],
             'sub_category': cat[1],
@@ -210,25 +214,29 @@ def generate_html(skills: List[Dict[str, Any]], title: str,
         const COLS = __COLS__;
         let currentData = skills.slice();
 
+        function esc(s) {
+            return String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+        }
+
         function cellHtml(c, skill) {
             if (c.key === 'status') {
-                return '<td><span class="status-icon">' + (STATUS_ICONS[skill.status] || '❓') + '</span></td>';
+                return '<td><span class="status-icon">' + esc(STATUS_ICONS[skill.status] || '❓') + '</span></td>';
             }
             if (c.key === 'name') {
-                const label = (skill.emoji ? skill.emoji + ' ' : '') + skill.name;
+                const label = esc((skill.emoji ? skill.emoji + ' ' : '') + skill.name);
                 const inner = skill.homepage
-                    ? '<a href="' + skill.homepage + '" target="_blank" style="color:#0066cc;text-decoration:none">' + label + '</a>'
+                    ? '<a href="' + esc(skill.homepage) + '" target="_blank" rel="noopener noreferrer" style="color:#0066cc;text-decoration:none">' + label + '</a>'
                     : label;
                 return '<td><span class="skill-name">' + inner + '</span></td>';
             }
             if (c.key === 'version') {
-                return '<td>' + (skill.version ? '<span class="skill-version">v' + skill.version + '</span>' : '-') + '</td>';
+                return '<td>' + (skill.version ? '<span class="skill-version">v' + esc(skill.version) + '</span>' : '-') + '</td>';
             }
             if (c.key === 'category') {
-                return '<td><span class="category-tag">' + skill.big_category + '</span></td>';
+                return '<td><span class="category-tag">' + esc(skill.big_category) + '</span></td>';
             }
             const v = skill[c.key];
-            return '<td>' + ((v === null || v === undefined || v === '') ? '-' : v) + '</td>';
+            return '<td>' + ((v === null || v === undefined || v === '') ? '-' : esc(v)) + '</td>';
         }
 
         function renderSkills(data) {
