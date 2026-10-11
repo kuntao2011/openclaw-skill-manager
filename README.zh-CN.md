@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.5-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.2.6-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
 [English](README.md) | **简体中文**
@@ -177,12 +177,14 @@ python3 generate_skill_list.py -o ~/my_skills
 
 ## 📊 输出示例
 
-### Markdown 表格
+> 节选自真实运行输出（2026-09-25，本机 64 个技能：31 ✅ / 5 ⚠️ / 28 ❌）。长描述自动压平换行并在 120 字处截断，完整内容见 JSON/HTML。
+
 ```
 | 序号 | 状态 | 技能名称 | 版本 | 来源 | 调用量 | 描述 |
 |------|------|----------|------|------|------|------|
-| 1 | ✅ | [🔮 问财选A股](https://...) | 1.0.0 | workspace | 12 | A股智能选股 |
-| 2 | ⚠️ | futuapi | 2.1.0 | bundled | - | 富途行情API |
+| 1 | ✅ | [☔ weather](https://wttr.in/:help) |  | bundled | - | Current weather and forecasts with web_fetch, falling back to wttr.in curl for locations, rain, temperature, travel plan… |
+| 2 | ✅ | kkk-ocr-local |  | agents-skills-personal | - | 本地图片预处理（纯 CPU）+ OCR 后备。主用途：①图片朝向检测与自动旋转 （auto_orient_ocr.py — 横放/倒置的文档照片先转正再送 MCP/云端识别，防旋转幻觉） ②空白裁剪（crop_whitespace.py —… |
+| 3 | ❌ | [🔐 1password](https://developer.1password.com/docs/cli/get-started/) |  | bundled | - | 设置和使用 1Password CLI for sign-in, desktop integration, and reading or injecting secrets. |
 ```
 
 ### HTML 界面特性

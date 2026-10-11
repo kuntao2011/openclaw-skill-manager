@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.5-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.2.6-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
 **English** | [简体中文](README.zh-CN.md)
@@ -177,12 +177,14 @@ Create `~/.openclaw/skill_categories.json` (takes precedence over the built-in m
 
 ## 📊 Output example
 
-### Markdown table
+> Excerpt from a real run (2026-09-25, 64 skills on this machine: 31 ✅ / 5 ⚠️ / 28 ❌). Long descriptions are whitespace-flattened and truncated at 120 chars in the table; full text lives in JSON/HTML.
+
 ```
 | # | Status | Skill | Version | Source | Calls | Description |
 |---|--------|-------|---------|--------|-------|-------------|
-| 1 | ✅ | [🔮 问财选A股](https://...) | 1.0.0 | workspace | 12 | A-share smart screener |
-| 2 | ⚠️ | futuapi | 2.1.0 | bundled | - | Futu market API |
+| 1 | ✅ | [☔ weather](https://wttr.in/:help) | | bundled | - | Current weather and forecasts with web_fetch, falling back to wttr.in curl for locations, rain, temperature, travel plan… |
+| 2 | ✅ | healthcheck | | bundled | - | Audit/harden OpenClaw hosts: SSH, firewall, updates, exposure, backups, disk encryption, gateway security. |
+| 3 | ❌ | [🔐 1password](https://developer.1password.com/docs/cli/get-started/) | | bundled | - | 设置和使用 1Password CLI for sign-in, desktop integration, and reading or injecting secrets. |
 ```
 
 ### HTML UI

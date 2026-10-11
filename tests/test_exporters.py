@@ -56,3 +56,20 @@ def test_build_cols_order():
 def test_mermaid_render():
     src = render_mermaid([{'skill': 'a-b', 'dep': 'ffmpeg', 'kind': 'bin'}])
     assert src.startswith('```mermaid') and 'graph LR' in src
+
+
+def test_desc_cell_flatten_and_truncate():
+    """多行/超长描述压平并截断（真实运行发现的表格破坏问题）"""
+    from exporter.markdown import _desc_cell
+    long_desc = '第一行\n\n第二行\t更多  ' + 'x' * 200
+    cell = _desc_cell({'description': long_desc})
+    assert '\n' not in cell and '\t' not in cell
+    assert cell.endswith('…') and len(cell) <= 121
+    assert _desc_cell({'description': 'short desc'}) == 'short desc'
+    assert _desc_cell({'description': ''}) == ''
+    # generate_markdown 表格内不含裸换行描述
+    skills = [{'name': 'alpha', 'status': 'ready', 'version': '', 'source': 'bundled',
+               'emoji': '', 'homepage': '', 'description': long_desc}]
+    md = generate_markdown(skills, 't')
+    table_rows = [ln for ln in md.splitlines() if ln.startswith('| ') and 'alpha' in ln]
+    assert len(table_rows) == 1 and len(table_rows[0]) < 300

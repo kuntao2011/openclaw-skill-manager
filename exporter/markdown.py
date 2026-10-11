@@ -24,6 +24,15 @@ def _source_cell(skill: Dict) -> str:
     return str(skill.get('source') or '').replace('openclaw-', '')
 
 
+def _desc_cell(skill: Dict, limit: int = 120) -> str:
+    """描述单元格：压平换行/制表符并截断，防止多行长描述破坏 Markdown 表格"""
+    desc = str(skill.get('description') or '')
+    flat = ' '.join(desc.split())
+    if len(flat) > limit:
+        flat = flat[:limit].rstrip() + '…'
+    return flat
+
+
 def generate_category_stats(categories: Dict[tuple, List]) -> str:
     """
     生成分类统计摘要
@@ -146,7 +155,7 @@ def generate_markdown(skills: List[Dict[str, Any]], title: str,
             status = skill.get('status', 'unknown')
             icon = STATUS_ICONS.get(status, '❓')
             version = skill.get('version', '')
-            desc = skill.get('description', '')
+            desc = _desc_cell(skill)
             if usage_col:
                 calls = (usage.get(skill['name']) or {}).get('calls')
                 lines.append(f"| {idx} | {icon} | {_name_cell(skill)} | {version} | "
