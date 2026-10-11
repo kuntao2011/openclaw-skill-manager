@@ -21,7 +21,7 @@ def test_esc_helper_applied_to_metadata():
     import re
     page = generate_html(_skills(), 't')
     # JS 渲染层对名称/版本/分类/通用列做转义（innerHTML XSS 整改）
-    assert re.search(r'esc\([^)]*skill\.name\)', page)
+    assert re.search(r'esc\(.+skill\.name\)', page)
     assert 'esc(skill.version)' in page
     assert 'esc(skill.big_category)' in page
     assert 'esc(skill.homepage)' in page
