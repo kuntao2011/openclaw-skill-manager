@@ -5,12 +5,12 @@ license: MIT
 allowed-tools:
   - Bash
 metadata:
-  version: "1.2.4"
+  version: "1.2.5"
   author: kuntao2011
   language: zh-CN
 ---
 
-# OpenClaw 技能统计与分类管理
+# OpenClaw 技能分类与统计
 
 增强版 OpenClaw 技能列表生成工具，采用模块化架构，支持多种输出格式和高级功能。
 

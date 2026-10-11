@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.2.4-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.2.5-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/kuntao2011/openclaw-skill-manager/actions/workflows/ci.yml)
 
 **English** | [简体中文](README.zh-CN.md)
@@ -98,7 +98,7 @@ python3 generate_skill_list.py -F not_activated
 python3 generate_skill_list.py -s "tavily"
 
 # Filter by category
-python3 generate_skill_list.py -c "Dev Tools"
+python3 generate_skill_list.py -c "开发工具"
 ```
 
 #### Advanced options
@@ -171,7 +171,7 @@ Create `~/.openclaw/skill_categories.json` (takes precedence over the built-in m
 
 ```json
 {
-  "my-skill": ["Dev Tools", "Coding"]
+  "my-skill": ["开发工具", "编码与开发"]
 }
 ```
 
@@ -181,7 +181,7 @@ Create `~/.openclaw/skill_categories.json` (takes precedence over the built-in m
 ```
 | # | Status | Skill | Version | Source | Calls | Description |
 |---|--------|-------|---------|--------|-------|-------------|
-| 1 | ✅ | 🔮 askcA | 1.0.0 | workspace | 12 | A-share smart screener |
+| 1 | ✅ | [🔮 问财选A股](https://...) | 1.0.0 | workspace | 12 | A-share smart screener |
 | 2 | ⚠️ | futuapi | 2.1.0 | bundled | - | Futu market API |
 ```
 
