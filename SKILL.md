@@ -5,7 +5,7 @@ license: MIT
 allowed-tools:
   - Bash
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
   author: kuntao2011
   language: zh-CN
 ---

@@ -1,5 +1,12 @@
 # 更新日志 (CHANGELOG)
 
+## [1.2.4] - 2026-09-25
+
+### 🔧 显示名修复
+- ClawHub 显示名由误设的 "Clh Stage" 恢复为「OpenClaw技能分类与统计」（publish 时补 `--name`）
+
+---
+
 ## [1.2.3] - 2026-09-25
 
 ### 🔒 ClawHub clawscan 整改（HTML 报告 XSS + 网络范围说明）
